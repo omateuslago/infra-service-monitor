@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "vPYrYKqLrFk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Mateus Lago\\infra-service-monitor\\backend\\InfraMonitorAPI\\InfraMonitorAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Mateus Lago\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\Mateus Lago\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
