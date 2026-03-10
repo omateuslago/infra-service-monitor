@@ -1,0 +1,8 @@
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.csproj.AssemblyReference.cache
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.AssemblyInfoInputs.cache
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.AssemblyInfo.cs
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.csproj.CoreCompileInputs.cache
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Mateus Lago\infra-service-monitor\backend\InfraMonitorAPI\obj\Debug\net9.0\InfraMonitorAPI.sourcelink.json
