@@ -11,5 +11,7 @@ namespace InfraMonitorAPI.Database
         }
 
         public DbSet<Service> Services { get; set; }
+
+        public DbSet<ServiceCheck> ServiceChecks { get; set; }
     }
 }
