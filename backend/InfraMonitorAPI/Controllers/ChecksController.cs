@@ -14,7 +14,7 @@ namespace InfraMonitorAPI.Controllers
         {
             _context = context;
         }
-
+       
         [HttpPost]
         public IActionResult Add(ServiceCheck check)
         {

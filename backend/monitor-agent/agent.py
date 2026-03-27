@@ -1,7 +1,7 @@
 import requests
 import time
 
-API_URL = "http://localhost:5232/api"
+API_URL = "http://infra-api:8080/api"
 CHECK_INTERVAL = 30
 
 
