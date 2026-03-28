@@ -6,8 +6,9 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql-infra-monitor
     environment:
-      SA_PASSWORD: "ÏnfraMonitor@123"
       ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+      MSSQL_SA_PASSWORD: "InfraMonitor@123"
     ports:
       - "1433:1433"
 
@@ -15,13 +16,9 @@ services:
     image: infra-monitor-api:latest
     container_name: infra-api
     ports:
-      - "5000:8000"
+      - "5000:8080"
     environment:
-      ConnectionStrings__DefaultConnection: "Server=database,1433;
-                                            Database=InfraMonitorDB;
-                                            User Id=sa;
-                                            Password=InfraMonitor@123;
-                                            TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=database,1433;Database=InfraMonitorDB;User Id=sa;Password=InfraMonitor@123;TrustServerCertificate=True;"
     depends_on:
       - database
 
@@ -29,6 +26,6 @@ services:
     image: infra-monitor-agent:latest
     container_name: infra-agent
     environment:
-      API_URL: http://infra-api:8000/api
+      API_URL: http://infra-api:8080/api
     depends_on:
       - api
