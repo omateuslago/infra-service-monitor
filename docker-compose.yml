@@ -13,6 +13,9 @@ services:
       - "1433:1433"
 
   api:
+    build:
+      context: ./backend/InfraMonitorAPI
+      dockerfile: Dockerfile
     image: infra-monitor-api:latest
     container_name: infra-api
     ports:
@@ -23,6 +26,9 @@ services:
       - database
 
   agent:
+    build:
+      context: ./backend/monitor-agent
+      dockerfile: Dockerfile
     image: infra-monitor-agent:latest
     container_name: infra-agent
     environment:
