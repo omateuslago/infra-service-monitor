@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   
   database:
@@ -32,6 +30,17 @@ services:
     image: infra-monitor-agent:latest
     container_name: infra-agent
     environment:
-      API_URL: http://infra-api:8080/api
+      API_URL: http://api:8080/api
+    depends_on:
+      - api
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: infra-monitor-frontend:latest
+    container_name: infra-frontend
+    ports:
+      - "3000:80"
     depends_on:
       - api

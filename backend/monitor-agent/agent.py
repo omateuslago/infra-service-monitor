@@ -1,8 +1,9 @@
 import requests
 import time
+import os
 
-API_URL = "http://infra-api:8080/api"
-CHECK_INTERVAL = 30
+API_URL = os.getenv("API_URL", "http://localhost:5232/api")
+CHECK_INTERVAL = 60
 
 
 def get_services():
