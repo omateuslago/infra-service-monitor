@@ -9,11 +9,21 @@ export default function App() {
   const [form, setForm] = useState({ name: "", url: "" });
 
   async function loadData() {
+  try {
     const servicesResponse = await fetch(`${API_URL}/services`);
     const checksResponse = await fetch(`${API_URL}/checks`);
 
-    setServices(await servicesResponse.json());
-    setChecks(await checksResponse.json());
+    const servicesData = await servicesResponse.json();
+    const checksData = await checksResponse.json();
+
+    console.log("Services:", servicesData);
+    console.log("Checks:", checksData);
+
+    setServices(Array.isArray(servicesData) ? servicesData : servicesData.$values ?? []);
+    setChecks(Array.isArray(checksData) ? checksData : checksData.$values ?? []);
+    } catch (error) {
+      console.error("Erro ao carregar dados:", error);
+    }
   }
 
   async function addService(e) {
@@ -34,7 +44,7 @@ export default function App() {
   useEffect(() => {
     loadData();
 
-    const interval = setInterval(loadData, 10000);
+    const interval = setInterval(loadData, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -52,7 +62,7 @@ export default function App() {
           </p>
         </div>
 
-        <div className="status-pill">Auto refresh: 10s</div>
+        <div className="status-pill">Auto refresh: 60s</div>
       </section>
 
       <section className="cards">
