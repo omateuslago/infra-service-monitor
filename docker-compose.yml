@@ -9,6 +9,11 @@ services:
       MSSQL_SA_PASSWORD: "InfraMonitor@123"
     ports:
       - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'InfraMonitor@123' -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   api:
     build:
@@ -21,7 +26,8 @@ services:
     environment:
       ConnectionStrings__DefaultConnection: "Server=database,1433;Database=InfraMonitorDB;User Id=sa;Password=InfraMonitor@123;TrustServerCertificate=True;"
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   agent:
     build:
