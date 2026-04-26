@@ -38,15 +38,26 @@ def check_service(service):
     url = service["url"]
     service_id = service["id"]
 
-    start = time.time()
+    headers = {
+        "User-Agent": "InfraServiceMonitor/1.0"
+    }
+
+    start = time.perf_counter()
 
     try:
-        response = requests.get(url, timeout=10)
-        is_online = response.status_code < 500
+        response = requests.head(
+            url,
+            timeout=10,
+            allow_redirects=True,
+            headers=headers
+        )
+
+        is_online = 200 <= response.status_code < 500
+
     except requests.exceptions.RequestException:
         is_online = False
 
-    response_time = int((time.time() - start) * 1000)
+    response_time = int((time.perf_counter() - start) * 1000)
 
     return {
         "serviceId": service_id,

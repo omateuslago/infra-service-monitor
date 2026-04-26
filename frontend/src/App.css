@@ -133,6 +133,22 @@ input {
   border-radius: 4px;
 }
 
+.response-time {
+  font-weight: 700;
+}
+
+.response-time.fast {
+  color: #22c55e;
+}
+
+.response-time.medium {
+  color: #eab308;
+}
+
+.response-time.slow {
+  color: #ef4444;
+}
+
 button {
   width: 100%;
   padding: 10px;

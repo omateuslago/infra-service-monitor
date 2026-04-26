@@ -8,19 +8,25 @@ export default function App() {
   const [checks, setChecks] = useState([]);
   const [form, setForm] = useState({ name: "", url: "" });
 
+  function getResponseTimeClass(ms) {
+    if (ms < 300) return "fast";
+    if (ms <= 800) return "medium";
+    return "slow";
+  }
+
   async function loadData() {
-  try {
-    const servicesResponse = await fetch(`${API_URL}/services`);
-    const checksResponse = await fetch(`${API_URL}/checks`);
+    try {
+      const servicesResponse = await fetch(`${API_URL}/services`);
+      const checksResponse = await fetch(`${API_URL}/checks`);
 
-    const servicesData = await servicesResponse.json();
-    const checksData = await checksResponse.json();
+      const servicesData = await servicesResponse.json();
+      const checksData = await checksResponse.json();
 
-    console.log("Services:", servicesData);
-    console.log("Checks:", checksData);
+      console.log("Services:", servicesData);
+      console.log("Checks:", checksData);
 
-    setServices(Array.isArray(servicesData) ? servicesData : servicesData.$values ?? []);
-    setChecks(Array.isArray(checksData) ? checksData : checksData.$values ?? []);
+      setServices(Array.isArray(servicesData) ? servicesData : servicesData.$values ?? []);
+      setChecks(Array.isArray(checksData) ? checksData : checksData.$values ?? []);
     } catch (error) {
       console.error("Erro ao carregar dados:", error);
     }
@@ -48,8 +54,23 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const onlineCount = checks.filter((check) => check.isOnline).length;
-  const offlineCount = checks.filter((check) => !check.isOnline).length;
+  const latestStatus = {};
+
+  checks.forEach((check) => {
+    const serviceId = check.serviceId;
+
+    if (
+      !latestStatus[serviceId] ||
+      new Date(check.checkedAt) > new Date(latestStatus[serviceId].checkedAt)
+    ) {
+      latestStatus[serviceId] = check;
+    }
+  });
+
+  const latestChecks = Object.values(latestStatus);
+
+  const onlineCount = latestChecks.filter((check) => check.isOnline).length;
+  const offlineCount = latestChecks.filter((check) => !check.isOnline).length;
 
   return (
     <main className="app">
@@ -114,7 +135,7 @@ export default function App() {
             />
 
             <input
-              placeholder="URL ex: https://google.com"
+              placeholder="URL ex: https://www.google.com"
               value={form.url}
               onChange={(e) => setForm({ ...form, url: e.target.value })}
               required
@@ -137,7 +158,9 @@ export default function App() {
                 {check.isOnline ? "Online" : "Offline"}
               </span>
 
-              <span>{check.responseTimeMs}ms</span>
+              <span className={`response-time ${getResponseTimeClass(check.responseTimeMs)}`}>
+                {check.responseTimeMs}ms
+              </span>
 
               <span>{new Date(check.checkedAt).toLocaleString("pt-BR")}</span>
             </div>

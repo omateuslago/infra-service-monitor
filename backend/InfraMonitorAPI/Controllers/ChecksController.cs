@@ -23,6 +23,20 @@ namespace InfraMonitorAPI.Controllers
                 .Include(x => x.Service)
                 .OrderByDescending(x => x.CheckedAt)
                 .Take(20)
+                .Select(check => new
+                {
+                    check.Id,
+                    check.ServiceId,
+                    check.IsOnline,
+                    check.ResponseTimeMs,
+                    check.CheckedAt,
+                    Service = new
+                    {
+                        check.Service.Id,
+                        check.Service.Name,
+                        check.Service.Url
+                    }
+                })
                 .ToList();
 
             return Ok(checks);

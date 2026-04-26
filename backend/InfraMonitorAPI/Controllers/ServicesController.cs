@@ -18,7 +18,17 @@ namespace InfraMonitorAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var services = _context.Services.ToList();
+            var services = _context.Services
+                .Select(service => new
+                {
+                    service.Id,
+                    service.Name,
+                    service.Url,
+                    service.IsActive,
+                    service.CreatedAt
+                })
+                .ToList();
+
             return Ok(services);
         }
 
