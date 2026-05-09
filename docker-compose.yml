@@ -6,7 +6,7 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Developer"
-      MSSQL_SA_PASSWORD: "InfraMonitor@123"
+      MSSQL_SA_PASSWORD: "${DB_PASSWORD}"
     ports:
       - "1433:1433"
     healthcheck:
@@ -24,7 +24,7 @@ services:
     ports:
       - "5000:8080"
     environment:
-      ConnectionStrings__DefaultConnection: "Server=database,1433;Database=InfraMonitorDB;User Id=sa;Password=InfraMonitor@123;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=database,1433;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True;"
     depends_on:
       database:
         condition: service_healthy

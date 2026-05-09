@@ -1,6 +1,11 @@
 # Visual Studio
 .vs/
 
+#Environment variables
+.env
+.env.local
+.env.*.local
+
 # Build
 bin/
 obj/
